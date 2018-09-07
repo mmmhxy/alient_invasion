@@ -2,8 +2,9 @@
 import pygame
 from settings import Settings
 from ship import Ship
+from alien import Alien
 import game_functions as gf
-
+from pygame.sprite import Group
 
 def run_game():
 	pygame.init()
@@ -13,13 +14,21 @@ def run_game():
 	pygame.display.set_caption('Alien Invasion')
 	
 	ship = Ship(ai_settings,screen)
+	aliens = Group()
+	bullets = Group()
+	
+	gf.create_fleet(ai_settings,screen,ship,aliens)
 	
 	while True:
 	
-		gf.check_events(ship)
+		gf.check_events(ai_settings,screen,ship,bullets)
 		ship.update()
-		gf.update_screen(ai_settings,screen,ship)
-				
+		gf.update_bullets(bullets)		
+		gf.update_aliens(ai_settings,bullets,aliens)
+
+		#update_bullet from bullets yes,but merged to funcion with reduce function!!
+		gf.update_screen(ai_settings,screen,ship,aliens,bullets)
+		
 
 
 
