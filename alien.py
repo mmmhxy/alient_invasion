@@ -7,7 +7,7 @@ class Alien(Sprite):
 		self.screen = screen
 		self.ai_settings = ai_settings
 		
-		self.image = pygame.image.load('images/alien.png')
+		self.image = pygame.image.load('images/alien.bmp')
 		self.rect = self.image.get_rect()
 		
 		#maybe its the origin point?

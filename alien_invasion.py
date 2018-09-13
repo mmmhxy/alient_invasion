@@ -5,6 +5,7 @@ from ship import Ship
 from alien import Alien
 import game_functions as gf
 from pygame.sprite import Group
+from game_stats import GameStats
 
 def run_game():
 	pygame.init()
@@ -16,15 +17,17 @@ def run_game():
 	ship = Ship(ai_settings,screen)
 	aliens = Group()
 	bullets = Group()
+	stats = GameStats(ai_settings)
 	
 	gf.create_fleet(ai_settings,screen,ship,aliens)
 	
 	while True:
 	
 		gf.check_events(ai_settings,screen,ship,bullets)
-		ship.update()
-		gf.update_bullets(bullets)		
-		gf.update_aliens(ai_settings,bullets,aliens)
+		if stats.game_active:
+			ship.update()
+			gf.update_bullets(bullets)		
+			gf.update_aliens(ai_settings,stats,screen,ship,bullets,aliens)
 
 		#update_bullet from bullets yes,but merged to funcion with reduce function!!
 		gf.update_screen(ai_settings,screen,ship,aliens,bullets)
